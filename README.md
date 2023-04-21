@@ -34,7 +34,7 @@ Alternatively, if using `Rstudio` this GitHub repository can be added using: `Fi
 
 **IMPORTANT**
 
-Packages were managed using the [https://rstudio.github.io/renv/index.html](renv) project environment developed by Rstudio, and versions can be found in the `renv.lock` file. To ensure that your packages are consistent with those that I used to run this code in your `R` terminal:
+Packages were managed using the [renv](https://rstudio.github.io/renv/index.html) project environment developed by Rstudio, and versions can be found in the `renv.lock` file. To ensure that your packages are consistent with those that I used to run this code in your `R` terminal:
 
 ```
 # If renv is not installed, install the renv package from CRAN
