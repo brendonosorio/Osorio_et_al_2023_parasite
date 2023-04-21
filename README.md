@@ -32,7 +32,8 @@ Understanding the diet of whale sharks (Rhincodon typus) is essential for the de
 To use this GitHub repository from a Command-line interface, simply `git-clone` this repository, `cd` into the repository folder  and use the `Rscript` function on the `script.R` file to run the full data analysis used for the paper.
 Alternatively, if using `Rstudio` this GitHub repository can be added using: `File -> New Project -> Version Control -> Git` and then add [https://github.com/brendonosorio/Osorio_et_al_2023](https://github.com/brendonosorio/Osorio_et_al_2023) in the Repository URL.
 
-** IMPORTANT **
+**IMPORTANT**
+
 Packages were managed using the [https://rstudio.github.io/renv/index.html](renv) project environment developed by Rstudio, and versions can be found in the `renv.lock` file. To ensure that your packages are consistent with those that I used to run this code in your `R` terminal:
 
 ```
