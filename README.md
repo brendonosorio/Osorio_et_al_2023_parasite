@@ -32,13 +32,30 @@ Understanding the diet of whale sharks (Rhincodon typus) is essential for the de
 To use this GitHub repository from a Command-line interface, simply `git-clone` this repository, `cd` into the repository folder  and use the `Rscript` function on the `script.R` file to run the full data analysis used for the paper.
 Alternatively, if using `Rstudio` this GitHub repository can be added using: `File -> New Project -> Version Control -> Git` and then add [https://github.com/brendonosorio/Osorio_et_al_2023](https://github.com/brendonosorio/Osorio_et_al_2023) in the Repository URL.
 
+Packages were managed using the [https://rstudio.github.io/renv/index.html](renv) project environment developed by Rstudio, and versions can be found in the `renv.lock` file. To ensure that your packages are consistent with those that I used to run this code in your `R` terminal:
+
+```
+# If renv is not installed, install the renv package from CRAN
+install.packages("renv")
+
+# Then in the project folder run
+renv::restore()
+```
+
+This process will download all the package versions which I used into an isolated environment and should not over-ride any packages present in your local `R` library.
+I think this process can also be done easily in the Rstudio GUI when loading from `git` but I have not check this yet.
+
 ## Methods
+
+## File structure for this git project
+All data used in the paper are presented in the `data/` folder. 
+This folder contains two .csv files which are `isotopes.csv` and `acid_treatment_data.csv`, alongside the subdirectory `mcmc_outputs/` which contain a single set of MCMC outputs from `SIBER`.
 
 ## Data-specific information for `isotopes.csv`
 The `isotopes.csv` is the main dataset which was used for the statistical analyses conducted in the report, and is the same data as provided in the supplementary materials.
 
-Number of variables: 17
-Number of observations: 72
+Number of variables: 17, Number of observations: 72
+
 Variable description list:
 * `Shark_ID`: contains the unique naming code for each whale shark observed at Ningaloo Reef between 2016 and 2022. Unique naming code are YYYY_WSXX where YYYY = Year of observation, WS = whale shark and XX is the observed whale shark that year.
 * `host_d15n`: are the $\delta^{15}N$ values obtained from whale shark dermal tissues.
@@ -62,8 +79,8 @@ Variable description list:
 The `acid_treatment_data.csv` dataset is a subsidiary dataset which was used to assess the effects of acidification procedures on *P. rhincodonicus* tissues.
 This information about acidification effects was fed into the `isotopes.csv`, with the `para_acid_d13c` variable being calculated as $Parasite_{acid} = Parasite_{Untreated} - 0.3$. Many variables present in the `isotopes.csv` dataset are also present in the `acid_treatment_data.csv` and reflect the same information here as well.
 
-Number of variables: 22
-Number of observations 40 (5 x 8 whale sharks)
+Number of variables: 22, Number of observations 40 (5 x 8 whale sharks)
+
 Variable descriptions:
 * `Shark_ID`: contains the unique naming code for each whale shark observed at Ningaloo Reef between 2016 and 2022. Unique naming code are YYYY_WSXX where YYYY = Year of observation, WS = whale shark and XX is the observed whale shark that year.
 * `Copepod_number`: reflects the copepod which was obtained from a single whale shark, being between C1 -> C5.
