@@ -27,6 +27,11 @@ Author contact details:
 ## Abstract
 Understanding the diet of whale sharks (Rhincodon typus) is essential for the development of appropriate conservation strategies for the species. This study evaluated the use of the parasitic copepod (Pandarus rhincodonicus) as a proxy to infer short-term foraging habitats and trophic positions of whale shark hosts. To accomplish this, bulk stable carbon ($\delta^{13}C$) and nitrogen ($\delta^{15}N$) isotope compositions were analysed from 72 paired samples of whale shark skin (dermal) tissues and copepods collected across six years at the Ningaloo Reef aggregation site, Western Australia. This study found that $\delta^{15}N$ from parasites and whale shark hosts were strongly correlated. As turn-over times of the parasite and whale shark differ (months vs. years, respectively), the ability of copepods to predict δ15N values indicates that the trophic positions of whale sharks remain consistent across these timeframes. Contrastingly, $\delta^{13}C$ in the parasite and host were weakly correlated, likely reflecting differences in the physiology and lifecycle of the copepod parasite compared to the host. Our results suggest $\delta^{15}N$ from parasitic copepods provide a reliable proxy of the trophic position of their whale shark hosts, but interpretation of $\delta^{13}C$ values as a proxy for the host will require future studies on the lifecycle of P. rhincodonicus.
 
+## Directions for use
+
+To use this GitHub repository from a Command-line interface, simply `git-clone` this repository, `cd` into the repository folder  and use the `Rscript` function on the `script.R` file to run the full data analysis used for the paper.
+Alternatively, if using `Rstudio` this GitHub repository can be added using: `File -> New Project -> Version Control -> Git` and then add [https://github.com/brendonosorio/Osorio_et_al_2023](https://github.com/brendonosorio/Osorio_et_al_2023) in the Repository URL.
+
 ## Methods
 
 ## Data-specific information for `isotopes.csv`
@@ -72,5 +77,3 @@ Variable descriptions:
 * `ntreat_para_n_percent`: are the nitrogen (N)% values from untreated *P. rhincodonicus* tissues.
 * `ntreat_para_c_percent`: are the carbon (C)% values from untreated *P. rhincodonicus* tissues.
 * `ntreat_para_cn_ratio`: are the C:N ratios from untreated *P. rhincodonicus* tissues.
-
-## Licenses
