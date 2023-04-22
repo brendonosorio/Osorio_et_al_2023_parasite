@@ -1021,28 +1021,33 @@ groupMetricsML(whale_siber)
 groupMetricsML(parasite_siber)
 
 ## Create density graphs for SEAb estimates ------------------------------------
+# Set colour palette (1 = female, 2 = male)
+colour_palette <- c("#0072b2", "#fe7308")
+
 # From parasite data
 parasite_density_plot <- function() {
     par(bty = "L", mar = c(4, 4, 1, 2))
+    # Female density
     plot(density(parasite_ellipses_set[, 1]),
          ylim = c(-0.3, 3.5), main = "",
          xlim = c(0.3, 2.5),
-         col = rgb(254, 115, 8, maxColorValue = 255),
+         col = colour_palette[1],
          xlab = expression(
              paste("Standard Ellipse Area (", "\u2030" ^ 2 ,")")),
          lwd = 2)
     points(y = -0.3, x = parasite_median_seab[1], pch = 19, cex = 1,
-           col = "#fe7308")
+           col = colour_palette[1])
     segments(y1 = -0.3, y0 = -0.3, x0 = hdi_parasite_female[, 2],
-             x1 = hdi_parasite_female[, 3], lwd = 3, col = "#fe7308")
+             x1 = hdi_parasite_female[, 3], lwd = 3, col = colour_palette[1])
+    # Male density
     lines(density(parasite_ellipses_set[, 2]),
-          col = "#0072b2", lwd = 2)
+          col = colour_palette[2], lwd = 2)
     points(y = -0.1, x = parasite_median_seab[2], pch = 19, cex = 1,
-           col = "#0072b2")
+           col = colour_palette[2])
     segments(y1 = -0.1, y0 = -0.1, x0 = hdi_parasite_male[, 2],
-             x1 = hdi_parasite_male[, 3], lwd = 3, col = "#0072b2")
+             x1 = hdi_parasite_male[, 3], lwd = 3, col = colour_palette[2])
     legend("topright", legend = c("Female", "Male"),
-           col = c("#fe7308", "#0072b2"), lty = 1, lwd = 2,
+           col = colour_palette, lty = 1, lwd = 2,
            cex = 0.8)
     text(x = 0.3, y = 3.5, labels = "D")
 }
@@ -1051,25 +1056,27 @@ parasite_density_plot()
 # Whale shark density points
 whale_shark_density <- function() {
     par(bty = "L", mar = c(4, 4, 1, 2))
+    # Female density
     plot(density(whale_ellipses_set[, 1]),
          ylim = c(-0.3, 3.5), main = "",
          xlim = c(0.3, 3.5),
-         col = rgb(254, 115, 8, maxColorValue = 255),
+         col = colour_palette[1],
          xlab = expression(
              paste("Standard Ellipse Area (", "\u2030" ^ 2 ,")")),
          lwd = 2)
     points(y = -0.3, x = whale_median_seab[1], pch = 19, cex = 1,
-           col = "#fe7308")
+           col = colour_palette[1])
     segments(y1 = -0.3, y0 = -0.3, x0 = hdi_whale_female[, 2],
-             x1 = hdi_whale_female[, 3], lwd = 3, col = "#fe7308")
+             x1 = hdi_whale_female[, 3], lwd = 3, col = colour_palette[1])
+    # Male density
     lines(density(whale_ellipses_set[, 2]),
-          col = "#0072b2", lwd = 2)
+          col = colour_palette[2], lwd = 2)
     points(y = -0.1, x = whale_median_seab[2], pch = 19, cex = 1,
-           col = "#0072b2")
+           col = colour_palette[2])
     segments(y1 = -0.1, y0 = -0.1, x0 = hdi_whale_male[, 2],
-             x1 = hdi_whale_male[, 3], lwd = 3, col = "#0072b2")
+             x1 = hdi_whale_male[, 3], lwd = 3, col = colour_palette[2])
     legend("topright", legend = c("Female", "Male"),
-           col = c("#fe7308", "#0072b2"), lty = 1, lwd = 2,
+           col = colour_palette, lty = 1, lwd = 2,
            cex = 0.8)
     text(x = 0.3, y = 3.5, labels = "B")
 }
@@ -1081,24 +1088,24 @@ parasite_plot <- function() {
     # Create base plot
     par(bty = "L", mar = c(4, 4, 1, 2))
     plot(isotopes$para_acid_d13c, isotopes$para_d15n,
-        col = c("#fe7308", "#0072b2")[isotopes$Sex], xlab = "", ylab = "",
+        col = colour_palette[isotopes$Sex], xlab = "", ylab = "",
         xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19))
     title(xlab = expression(paste(delta ^ {13}, "C (\u2030)")))
     title(ylab = expression(paste(delta ^ {15}, "N (\u2030)")), line = 2)
     legend("bottomright", legend = c("Female", "Male"), pch = c(19, 19),
-           lty = c(1, 1), col = c("#fe7308", "#0072b2"), inset = 0.05,
+           lty = c(1, 1), col = colour_palette, inset = 0.05,
            cex = 0.8)
     text(-18.5, 11, label = "C")
     # Add standard ellipse areas females
     coords <- addEllipse(
         parasite_siber$ML.mu[[1]][,, 1], parasite_siber$ML.cov[[1]][,, 1],
         m = 72, n = 100, ci.mean = FALSE, small.sample = TRUE,
-        p.interval = 0.40, col = "#fe7308", lty = 1, lwd = 1)
+        p.interval = 0.40, col = colour_palette[1], lty = 1, lwd = 1)
     # Add standard ellipse areas males
     coords <- addEllipse(
         parasite_siber$ML.mu[[1]][,, 2], parasite_siber$ML.cov[[1]][,, 2],
         m = 72, n = 100, ci.mean = FALSE, small.sample = TRUE,
-        p.interval = 0.40, col = "#0072b2", lty = 1, lwd = 1)
+        p.interval = 0.40, col = colour_palette[2], lty = 1, lwd = 1)
 }
 parasite_plot()
 
@@ -1106,24 +1113,24 @@ parasite_plot()
 whale_plot <- function() {
     par(bty = "L", mar = c(4, 4, 1, 2))
     plot(isotopes$host_d13c, isotopes$host_d15n,
-        col = c("#fe7308", "#0072b2")[isotopes$Sex], xlab = "", ylab = "",
+        col = colour_palette[isotopes$Sex], xlab = "", ylab = "",
         xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19))
     title(xlab = expression(paste(delta ^ {13}, "C (\u2030)")))
     title(ylab = expression(paste(delta ^ {15}, "N (\u2030)")), line = 2)
     legend("bottomleft", legend = c("Female", "Male"), pch = c(19, 19),
-           lty = c(1, 1), col = c("#fe7308", "#0072b2"), inset = 0.05,
+           lty = c(1, 1), col = colour_palette, inset = 0.05,
            cex = 0.8)
     text(-18.5, 11, label = "A")
     # Add standard ellipse areas females
     coords <- addEllipse(
         whale_siber$ML.mu[[1]][,, 1], whale_siber$ML.cov[[1]][,, 1],
         m = 72, n = 100, ci.mean = FALSE, small.sample = TRUE,
-        p.interval = 0.40, col = "#fe7308", lty = 1, lwd = 1)
+        p.interval = 0.40, col = colour_palette[1], lty = 1, lwd = 1)
     # Add standard ellipse areas males
     coords <- addEllipse(
         whale_siber$ML.mu[[1]][,, 2], whale_siber$ML.cov[[1]][,, 2],
         m = 72, n = 100, ci.mean = FALSE, small.sample = TRUE,
-        p.interval = 0.40, col = "#0072b2", lty = 1, lwd = 1)
+        p.interval = 0.40, col = colour_palette[2], lty = 1, lwd = 1)
 }
 whale_plot()
 
