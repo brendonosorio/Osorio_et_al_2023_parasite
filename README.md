@@ -25,6 +25,7 @@ Author contact details:
 * ORCiD: 0000-0002-3067-9427
 
 ## Abstract
+
 Understanding the diet of whale sharks (Rhincodon typus) is essential for the development of appropriate conservation strategies for the species. This study evaluated the use of the parasitic copepod (Pandarus rhincodonicus) as a proxy to infer short-term foraging habitats and trophic positions of whale shark hosts. To accomplish this, bulk stable carbon ($\delta^{13}C$) and nitrogen ($\delta^{15}N$) isotope compositions were analysed from 72 paired samples of whale shark skin (dermal) tissues and copepods collected across six years at the Ningaloo Reef aggregation site, Western Australia. This study found that $\delta^{15}N$ from parasites and whale shark hosts were strongly correlated. As turn-over times of the parasite and whale shark differ (months vs. years, respectively), the ability of copepods to predict δ15N values indicates that the trophic positions of whale sharks remain consistent across these timeframes. Contrastingly, $\delta^{13}C$ in the parasite and host were weakly correlated, likely reflecting differences in the physiology and lifecycle of the copepod parasite compared to the host. Our results suggest $\delta^{15}N$ from parasitic copepods provide a reliable proxy of the trophic position of their whale shark hosts, but interpretation of $\delta^{13}C$ values as a proxy for the host will require future studies on the lifecycle of P. rhincodonicus.
 
 ## Directions for use
@@ -48,9 +49,6 @@ This process will download all the package versions which I used into an isolate
 I think this process can also be done easily in the Rstudio GUI when loading from `git` but I have not check this yet.
 **Note** that `rjags` which is used in the `SIBER` package for bayesian ellipse calculations is only an `R` wrapper for `JAGS` and requires `JAGS` to be installed onto your computer outside of `R`.
 Installation of `JAGS` can be found in at the website: [https://mcmc-jags.sourceforge.io/](https://mcmc-jags.sourceforge.io/).
-
-## Methods
-
 
 ## File structure for this git project
 
