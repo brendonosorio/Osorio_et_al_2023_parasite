@@ -29,7 +29,7 @@ Understanding the diet of whale sharks (Rhincodon typus) is essential for the de
 
 ## Directions for use
 
-To use this GitHub repository from a Command-line interface, simply `git-clone` this repository, `cd` into the repository folder  and use the `Rscript` function on the `script.R` file to run the full data analysis used for the paper.
+To use this GitHub repository from the terminal interface, simply `git clone` this repository, `cd` into the repository folder  and use the `Rscript` function on the `script.R` file to run the full data analysis used for the paper.
 Alternatively, if using `Rstudio` this GitHub repository can be added using: `File -> New Project -> Version Control -> Git` and then add [https://github.com/brendonosorio/Osorio_et_al_2023](https://github.com/brendonosorio/Osorio_et_al_2023) in the Repository URL.
 
 **IMPORTANT**
@@ -53,8 +53,32 @@ Installation of `JAGS` can be found in at the website: [https://mcmc-jags.source
 
 
 ## File structure for this git project
-All data used in the paper are presented in the `data/` folder. 
-This folder contains two .csv files which are `isotopes.csv` and `acid_treatment_data.csv`, alongside the subdirectory `mcmc_outputs/` which contain a single set of MCMC outputs from `SIBER`.
+
+The structure of this repository is as follows:
+
+```
+├── data
+│   ├── acid_treatment_data.csv
+│   ├── isotopes.csv
+│   └── mcmc_output
+│       ├── parasite_mcmc_draws.csv
+│       ├── parasite_mf_draws.csv
+│       ├── whale_mcmc_draws.csv
+│       └── whale_mf_draws.csv
+├── figures
+│   ├── figure_1.pdf
+│   ├── figure_2.png
+│   ├── figure_3.png
+│   ├── figure_4.png
+│   ├── figure_5.png
+│   ├── figure_6.png
+│   └── supplementary_figure_1.png
+├── isotope_analysis.R
+├── LICENSE
+├── README.md
+├── renv
+│   ├── activate.R
+```
 
 ## Data-specific information for `isotopes.csv`
 The `isotopes.csv` is the main dataset which was used for the statistical analyses conducted in the report, and is the same data as provided in the supplementary materials.
