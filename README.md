@@ -46,8 +46,11 @@ renv::restore()
 
 This process will download all the package versions which I used into an isolated environment and should not over-ride any packages present in your local `R` library.
 I think this process can also be done easily in the Rstudio GUI when loading from `git` but I have not check this yet.
+**Note** that `rjags` which is used in the `SIBER` package for bayesian ellipse calculations is only an `R` wrapper for `JAGS` and requires `JAGS` to be installed onto your computer outside of `R`.
+Installation of `JAGS` can be found in at the website: [https://mcmc-jags.sourceforge.io/](https://mcmc-jags.sourceforge.io/).
 
 ## Methods
+
 
 ## File structure for this git project
 All data used in the paper are presented in the `data/` folder. 
