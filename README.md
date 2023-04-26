@@ -58,9 +58,9 @@ The structure of this repository is as follows:
 
 ```
 ├── data
-│   ├── acid_treatment_data.csv
-│   ├── isotopes.csv
-│   └── mcmc_output
+│   ├── acid_treatment_data.csv             # Table 2 supplementary materials
+│   ├── isotopes.csv                        # Table 1 supplementary materials
+│   └── mcmc_output                         # Subsidiary folder containing MCMC outputs
 │       ├── parasite_mcmc_draws.csv
 │       ├── parasite_mf_draws.csv
 │       ├── whale_mcmc_draws.csv
@@ -73,11 +73,12 @@ The structure of this repository is as follows:
 │   ├── figure_5.png
 │   ├── figure_6.png
 │   └── supplementary_figure_1.png
-├── isotope_analysis.R
+├── isotope_analysis.R                      # Main analysis 
 ├── LICENSE
 ├── README.md
 ├── renv
-│   ├── activate.R
+│   ├── activate.R                          # Automatically loads renv
+└── renv.lock                               # Contains package information
 ```
 
 ## Data-specific information for `isotopes.csv`
