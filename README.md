@@ -12,17 +12,9 @@ Affiliations:
 
 Author contact details:
 
-*Brendon J. Osorio*
-* Email: brendon_osorio@outlook.com
-* ORCiD: 0000-0002-6803-7454
-
-*Grzegorz Skrzypek*
-* Email: g.skrzypek@uwa.edu.au
-* ORCiD: 0000-0002-5686-2393
-
-*Mark Meekan*
-* Email: m.meekan@gmail.com
-* ORCiD: 0000-0002-3067-9427
+* *Brendon J. Osorio*, email: brendon_osorio@outlook.com, ORCiD: 0000-0002-6803-7454
+* *Grzegorz Skrzypek*, email: g.skrzypek@uwa.edu.au, ORCiD: 0000-0002-5686-2393
+* *Mark Meekan*, email: m.meekan@gmail.com, ORCiD: 0000-0002-3067-9427
 
 ## Abstract
 
