@@ -75,7 +75,7 @@ sd(parasite_n_diff, na.rm = TRUE) # SD d15n
 mean(parasite_cn_diff, na.rm = TRUE) # mean CN ratio
 sd(parasite_cn_diff, na.rm = TRUE) # SD CN ratio
 
-# Note (na.rm = TRUE) -- some copepods had only one treatement, these copepods
+# Note (na.rm = TRUE) -- some copepods had only one treatment, these copepods
 # were removed from difference calculations.
 
 # T test calculations
@@ -152,8 +152,7 @@ isotope_distribution <- function() {
         mar = c(4, 4, 1, 1)
     )
     # Add points
-    plot(
-        host_d15n ~ host_d13c,
+    plot(host_d15n ~ host_d13c,
         data = isotopes,
         xlim = c(-18.5, -14),
         ylim = c(6, 11),
@@ -162,8 +161,14 @@ isotope_distribution <- function() {
         xlab = "",
         pch = 16,
         cex = 1.1,
-        cex.axis = 1.2
+        cex.axis = 1.2,
+        xaxt = "n"
     )
+    # Adjust negative hyphen values to be minus (/u2122) in x axis
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    x_labs <- gsub("-", "\u2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
+    # Add x and y axis titles
     title(
         ylab = expression(paste(delta ^ 15, "N (\u2030)")),
         xlab = expression(paste(delta ^ 13, "C (\u2030)")),
@@ -411,7 +416,14 @@ cop_shark_correlation <- function() {
     # Carbon plot ---------------------------------------------------
     # Start with empty plot
     plot(host_d13c ~ para_acid_d13c, data = isotopes,
-         type = "n", xlab = "", ylab = "", cex.axis = 1.2)
+         type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n")
+    # Change default axis hypen to em dash
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    x_labs <- gsub("-", "\U2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    y_labs <- gsub("-", "\U2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs, cex.axis = 1.2)
     # Add regression line
     abline(carbon_lm_1, col = "black", lwd = 2, lty = 1)
     # Add confidence intervals
@@ -561,15 +573,22 @@ sd(blood_15n_adj) # In report
 # Compare against the +1 and +3.4 hypothesised values from Minagwawa
 t.test(mu = 1, blood_13c_adj) # Carbon
 t.test(mu = 3.4, blood_15n_adj) # Nitrogen
+par(mfrow = c(1,1))
 
 # Now create correlation plots between TDF and host isotope values
 tdf_scaling <- function() {
     # Set plot size etc
     par(bty = "l", lwd = 2, mar = c(3.5, 4.5, 2.5, 1),cex.axis = 1.2)
-
     # Carbon values
     plot(cop_shark_13c_diff ~ blood_13c, xlab = "", ylab = "", pch = 19,
-         col = alpha("#8abad5", alpha = 0.9), cex = 1.2)
+         col = alpha("#8abad5", alpha = 0.9), xaxt = "n", yaxt = "n")
+    # Replace hyphen with endash in plot
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    x_labs <- gsub("-", "\u2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    y_labs <- gsub("-", "\u2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs, cex.axis = 1.2)
     # Add x and y labels
     title(xlab = expression(paste(delta ^ 13, "C"["Bl"] ~ "(\u2030)")),
           ylab = expression(paste(Delta ^ 13, "C"["P-Bl"] ~ "(\u2030)")),
@@ -620,8 +639,13 @@ cop_shark_diff_plot <- function() {
             expression(paste(Delta ^ 15, "N"["P-Bl(raw)"])),
             expression(paste(Delta ^ 15, "N"["P-Bl(adj)"]))),
         las = 1, lwd = 1, outline = FALSE, whisklty = 1, cex.lab = 1.4,
-        cex.axis = 1.4)
-    abline(v = 0, lty = 2, lwd = 1, col = "black")
+        cex.axis = 1.4, xaxt = "n")
+    # Alter X axis hyphens to be endash symbols
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    x_labs <- gsub("-", "\u2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs, cex.axis = 1.4)
+    abline(v = 0, lty = 2, lwd = 1, col = "black") # Zero line
+    # Add points for each group
     stripchart(list(
         cop_shark_13c_diff, blood_13c_adj, cop_shark_15n_diff, blood_15n_adj),
         add = TRUE, method = "jitter", pch = 19, cex = 1,
@@ -631,8 +655,8 @@ cop_shark_diff_plot <- function() {
                 alpha("#3ea96a", alpha = 0.4)))
     mtext("C", side = 3, adj = 0.0, line = 1, cex = 1.5)
     # Add hypothesis lines
-    segments(x0 = 1, y0 = 2.4, y1 = 0.9, col = "royalblue3", lty = 4)
-    segments(x0 = 3.4, y0 = 2.6, y1 = 4.6, col = "seagreen", lty = 3)
+    segments(x0 = 1, y0 = 2.4, y1 = 0.9, col = "royalblue3", lty = 4) # Carbon
+    segments(x0 = 3.4, y0 = 2.6, y1 = 4.6, col = "seagreen", lty = 3) # Nitrogen
     # Add text for hypothesis values
     text(x = 3.3, y = 2.3,
          label = expression(paste("H"["0"] ~ Delta ^ 15, "N"["P-Bl"])),
@@ -657,8 +681,8 @@ plot_tdf_all()
 
 # Save this as a png
 # figure_4 <- function() {
-#     png("figures/figure_4.png", width = 10, height = 8,
-#         res = 1000, units = "in")
+#     jpeg("figures/figure_4.jpg", width = 10, height = 8,
+#         res = 1400, units = "in")
 #     plot_tdf_all()
 #     dev.off()
 # }
@@ -685,7 +709,7 @@ summary(lm_n_full)
 # Apply MuMIn dredge to dermal nitrogen values
 dredge_model_sel_15n_a <- dredge(lm_n_full,
                                  rank = "AICc", # Output orders by AICc
-                                 extra = c("R^2", BIC) # Output provide R2 and BIC
+                                 extra = c("R^2", BIC) # Output R2 and BIC
 )
 # Show all run models
 print(dredge_model_sel_15n_a) # Models with >10% weight in AICc are reported.
@@ -704,7 +728,7 @@ lm_c_full <- lm(host_d13c ~ length_est * Sex * Year, data = isotopes,
 # Apply MuMIn dredge to dermal nitrogen values
 dredge_model_sel_13c_a <- dredge(lm_c_full,
                                  rank = "AICc", # Output orders by AICc
-                                 extra = c("R^2", BIC) # Output provide R2 and BIC
+                                 extra = c("R^2", BIC) # Output R2 and BIC
 )
 # Show all run models
 print(dredge_model_sel_13c_a) # Models with >10% weight in AICc are reported.
@@ -734,6 +758,9 @@ visreg_aicc_c <- visreg(AICc_c_model, "length_est",
                         plot = FALSE)
 visreg_aicc_c$res$sex <- isotopes$Sex # Add sex levels for plotting functions
 
+# Function to add true minus (\u2212) to x/y axis if needed
+true_minus <- function(x){ifelse(sign(x) == -1, paste0("\u2212", abs(x)), x)}
+
 ### Whale shark length and dermal 13C values -----------------------------------
 shark_d13c_length <- ggplot() +
     # Add confidence intervals
@@ -751,6 +778,7 @@ shark_d13c_length <- ggplot() +
     scale_color_manual(values = c(alpha("#0072b2", 1), alpha("#fe7308", 1)),
                        labels = c("Female", "Male")) +
     scale_shape_discrete(labels = c("Female", "Male")) +
+    scale_y_continuous(labels = true_minus) +
     # Change theme to be consistent
     theme_classic() +
     # Alter themes
@@ -761,7 +789,9 @@ shark_d13c_length <- ggplot() +
           axis.text = element_text(size = 13),
           axis.title = element_text(size = 14),
           legend.text = element_text(size = 14),
-          plot.title = element_text(size = 16)) +
+          plot.title = element_text(size = 16),
+          axis.text.x = element_text(colour = "black"),
+          axis.text.y = element_text(colour = "black")) +
     labs(x = "Shark Length (m)",
          y = expression(paste(delta ^ 13, "C (\u2030)")),
          title = "A")
@@ -791,6 +821,8 @@ shark_d13c_year <- ggplot() +
     # Manually define colours
     scale_fill_manual(values = c("#E69F00", "#56B4E9", "#009E73",
                                  "#000000", "#D55E00", "#CC79A7")) +
+    # Change to true minus symbol
+    scale_y_continuous(labels = true_minus) +
     # Adjust theme
     theme_classic() +
     # Make theme consistent
@@ -800,7 +832,9 @@ shark_d13c_year <- ggplot() +
           axis.text = element_text(size = 13),
           axis.title = element_text(size = 14),
           legend.text = element_text(size = 14),
-          plot.title = element_text(size = 16)) +
+          plot.title = element_text(size = 16),
+          axis.text.x = element_text(colour = "black"),
+          axis.text.y = element_text(colour = "black")) +
     labs(x = "Year", y = expression(paste(delta ^ 13, "C (\u2030)")),
          title = "B")
 shark_d13c_year
@@ -825,6 +859,7 @@ shark_d13c_sex <- ggplot() +
                        labels = c("Female", "Male")) +
     scale_fill_manual(values = c("#0683c9", "#e89556"),
                       labels = c("Female", "Male")) +
+    scale_y_continuous(labels = true_minus) +
     theme_classic() +
     theme(axis.line = element_line(size = 0.8, color = "black"),
           legend.position = "none",
@@ -832,7 +867,9 @@ shark_d13c_sex <- ggplot() +
           axis.text = element_text(size = 13),
           axis.title = element_text(size = 14),
           legend.text = element_text(size = 14),
-          plot.title = element_text(size = 16)) +
+          plot.title = element_text(size = 16),
+          axis.text.x = element_text(colour = "black"),
+          axis.text.y = element_text(colour = "black")) +
     guides(col = guide_legend(ncol = 2)) +
     labs(x = "Sex", y = expression(paste(delta ^ 13, "C (\u2030)")),
          title = "C") +
@@ -871,7 +908,9 @@ n_length_plot <- ggplot() +
           axis.text = element_text(size = 13),
           axis.title = element_text(size = 14),
           legend.text = element_text(size = 14),
-          plot.title = element_text(size = 16)) +
+          plot.title = element_text(size = 16),
+          axis.text.x = element_text(colour = "black"),
+          axis.text.y = element_text(colour = "black")) +
     labs(x = "Shark Length (m)",
          y = expression(paste(delta ^ 15, "N (\u2030)")),
          title = "D")
@@ -903,7 +942,9 @@ n_year <- ggplot() +
           axis.text = element_text(size = 13),
           axis.title = element_text(size = 14),
           legend.text = element_text(size = 14),
-          plot.title = element_text(size = 16)) +
+          plot.title = element_text(size = 16),
+          axis.text.x = element_text(colour = "black"),
+          axis.text.y = element_text(colour = "black")) +
     labs(x = "Year", y = expression(paste(delta ^ 15, "N (\u2030)")),
          title = "E")
 n_year
@@ -922,8 +963,8 @@ main_plot <- (carbon_plots | nitrogen_plots)
 main_plot
 
 # Save this as a png file for figure 5
-# ggsave("figures/figure_5.png", main_plot, device = "png", width = 12,
-#        height = 10, units = "in", dpi = 320)
+ggsave("figures/figure_5.png", main_plot, device = "png", width = 12,
+       height = 10, units = "in", dpi = 1000)
 
 # SECTION 5 - SIBER Analysis ---------------------------------------------------
 # This section is dedicated to the Bayesian analysis estimating isotopic niche
@@ -1084,12 +1125,21 @@ whale_shark_density()
 
 ## Create bivariate plots ------------------------------------------------------
 # Create bivariate plot of isotope niche using maxlikelihood estimate (parasite)
+
+# Create a numeric vector of factors for easier plotting
+sex_factors <- as.numeric(as.factor(isotopes$Sex))
+
 parasite_plot <- function() {
     # Create base plot
     par(bty = "L", mar = c(4, 4, 1, 2))
     plot(isotopes$para_acid_d13c, isotopes$para_d15n,
-        col = colour_palette[isotopes$Sex], xlab = "", ylab = "",
-        xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19))
+        col = colour_palette[sex_factors], xlab = "", ylab = "",
+        xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19), xaxt = "n")
+    # Add minux (\u2212) for plotting
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    x_labs <- gsub("-", "\u2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs)
+    # Add axis titles
     title(xlab = expression(paste(delta ^ {13}, "C (\u2030)")))
     title(ylab = expression(paste(delta ^ {15}, "N (\u2030)")), line = 2)
     legend("bottomright", legend = c("Female", "Male"), pch = c(19, 19),
@@ -1113,8 +1163,12 @@ parasite_plot()
 whale_plot <- function() {
     par(bty = "L", mar = c(4, 4, 1, 2))
     plot(isotopes$host_d13c, isotopes$host_d15n,
-        col = colour_palette[isotopes$Sex], xlab = "", ylab = "",
-        xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19))
+        col = colour_palette[sex_factors], xlab = "", ylab = "",
+        xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19), xaxt = "n")
+    # Add minus symbol for negative values
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    x_labs <- gsub("-", "\u2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs)
     title(xlab = expression(paste(delta ^ {13}, "C (\u2030)")))
     title(ylab = expression(paste(delta ^ {15}, "N (\u2030)")), line = 2)
     legend("bottomleft", legend = c("Female", "Male"), pch = c(19, 19),
@@ -1149,7 +1203,7 @@ standard_ellipse_plot()
 figure_6 <- function() {
     png(filename = "figures/figure_6.png",
         width = 7, height = 7, unit = "in",
-        res = 900)
+        res = 1200)
     standard_ellipse_plot()
     dev.off()
 }
