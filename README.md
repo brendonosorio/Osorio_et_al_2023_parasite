@@ -1,6 +1,6 @@
 # Parasitic copepods as biochemical tracers of foraging patterns and dietary shifts in whale sharks (*Rhincodon typus* Smith, 1828)
 
-This repository contains the R scripts which were used for stable isotope analysis for the paper **"Parasitic copepods as biochemical tracers of foraging patterns and dietary shifts in whale sharks"**.
+This repository contains the R scripts which were used for stable isotope analysis for the paper **"Parasitic copepods as biochemical tracers of foraging patterns and dietary shifts in whale sharks (*Rhincodon typus* Smith, 1828)"**.
 DOI - TBD.
 
 ## Author Information
