@@ -58,12 +58,12 @@ The structure of this repository is as follows:
 │       ├── whale_mcmc_draws.csv
 │       └── whale_mf_draws.csv
 ├── figures
-│   ├── figure_1.pdf
-│   ├── figure_2.png
-│   ├── figure_3.png
-│   ├── figure_4.png
-│   ├── figure_5.png
-│   ├── figure_6.png
+│   ├── figure_1.tiff
+│   ├── figure_2.tiff
+│   ├── figure_3.tiff
+│   ├── figure_4.tiff
+│   ├── figure_5.tiff
+│   ├── figure_6.tiff
 │   └── supplementary_figure_1.png
 ├── isotope_analysis.R                      # Main analysis 
 ├── LICENSE
