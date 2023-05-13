@@ -162,12 +162,18 @@ isotope_distribution <- function() {
         pch = 16,
         cex = 1.1,
         cex.axis = 1.2,
-        xaxt = "n"
+        xaxt = "n",
+        yaxt = "n"
     )
     # Adjust negative hyphen values to be minus (/u2122) in x axis
     xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat) # Add decimal precision to axis
     x_labs <- gsub("-", "\u2212", print.default(xat))
     axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat) # Add decimal precision to axis
+    y_labs <- gsub("-", "\u2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs, cex.axis = 1.2)
     # Add x and y axis titles
     title(
         ylab = expression(paste(delta ^ 15, "N (\u2030)")),
@@ -315,13 +321,13 @@ isotope_distribution <- function() {
 isotope_distribution()
 
 # Save isotope distribution plot
-# save_isotope_plot <- function() {
-#     png("figures/figure_2.png",
-#         units = "in", width = 10, height = 7, res = 1000)
-#     isotope_distribution()
-#     dev.off()
-# }
-# save_isotope_plot()
+save_isotope_plot <- function() {
+    tiff("figures/figure_2.tiff",
+        units = "in", width = 8, height = 8, res = 500, compression = "lzw")
+    isotope_distribution()
+    dev.off()
+}
+save_isotope_plot()
 
 # SECTION 2 - Parasite Host Correlation ----------------------------------------
 # This section calculates the main correlation between the copepod isotope and
@@ -419,9 +425,11 @@ cop_shark_correlation <- function() {
          type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n")
     # Change default axis hypen to em dash
     xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat) # Keep precision of xlab values in string
     x_labs <- gsub("-", "\U2212", print.default(xat))
     axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
     yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat) # Keep precision of ylab values in string
     y_labs <- gsub("-", "\U2212", print.default(yat))
     axis(2, at = yat, labels = y_labs, cex.axis = 1.2)
     # Add regression line
@@ -450,7 +458,15 @@ cop_shark_correlation <- function() {
     # Nitrogen Plot -------------------------------------------------
     # Start empty plot
     plot(host_d15n ~ para_d15n, data = isotopes, type = "n",
-         xlab = "", ylab = "", cex.axis = 1.2)
+         xlab = "", ylab = "", cex.axis = 1.2, xaxt = "n", yaxt = "n")
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat) # Keep precision of xlab values in string
+    x_labs <- gsub("-", "\U2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat) # Keep precision of ylab values in string
+    y_labs <- gsub("-", "\U2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs, cex.axis = 1.2)
     # Add regression line
     abline(nitrogen_lm_1, col = "black", lwd = 2, lty = 1)
     # Add confidence intervals
@@ -480,16 +496,16 @@ cop_shark_correlation <- function() {
 cop_shark_correlation()
 
 # Save figure
-# figure_3_png <- function() {
-#      png(filename = "figures/figure_3.png",
-#         width = 10, height = 6,
-#         units = "in",
-#         res = 900)
-#     cop_shark_correlation()
-#     dev.off()
-# }
-#
-# figure_3_png()
+figure_3_png <- function() {
+     tiff(filename = "figures/figure_3.tiff",
+        width = 10, height = 5.5,
+        units = "in",
+        res = 400, compression = "lzw")
+    cop_shark_correlation()
+    dev.off()
+}
+
+figure_3_png()
 
 # SECTION 3 - Trophic Discrimination Factors -----------------------------------
 # This section calculates the trophic discrimination factors (TDF) between
@@ -584,9 +600,11 @@ tdf_scaling <- function() {
          col = alpha("#8abad5", alpha = 0.9), xaxt = "n", yaxt = "n")
     # Replace hyphen with endash in plot
     xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat)
     x_labs <- gsub("-", "\u2212", print.default(xat))
     axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
     yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat)
     y_labs <- gsub("-", "\u2212", print.default(yat))
     axis(2, at = yat, labels = y_labs, cex.axis = 1.2)
     # Add x and y labels
@@ -606,7 +624,15 @@ tdf_scaling <- function() {
 
     # Nitrogen plot
     plot(cop_shark_15n_diff ~ blood_15n, xlab = "", ylab = "", pch = 19,
-         col = alpha("#3ea96a", alpha = 0.4), cex = 1.2)
+         col = alpha("#3ea96a", alpha = 0.4), cex = 1.2, xaxt = "n", yaxt = "n")
+    xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat)
+    x_labs <- gsub("-", "\u2212", print.default(xat))
+    axis(1, at = xat, labels = x_labs, cex.axis = 1.2)
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat)
+    y_labs <- gsub("-", "\u2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs, cex.axis = 1.2)
     # Add x and y labels
     title(xlab = expression(paste(delta ^ 15, "N"["Bl"] ~ "(\u2030)")),
           ylab = expression(paste(Delta ^ 15, "N"["P-Bl"] ~ "(\u2030)")),
@@ -642,6 +668,7 @@ cop_shark_diff_plot <- function() {
         cex.axis = 1.4, xaxt = "n")
     # Alter X axis hyphens to be endash symbols
     xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat)
     x_labs <- gsub("-", "\u2212", print.default(xat))
     axis(1, at = xat, labels = x_labs, cex.axis = 1.4)
     abline(v = 0, lty = 2, lwd = 1, col = "black") # Zero line
@@ -680,14 +707,14 @@ plot_tdf_all <- function() {
 plot_tdf_all()
 
 # Save this as a png
-# figure_4 <- function() {
-#     jpeg("figures/figure_4.jpg", width = 10, height = 8,
-#         res = 1400, units = "in")
-#     plot_tdf_all()
-#     dev.off()
-# }
-#
-# figure_4()
+figure_4 <- function() {
+    tiff("figures/figure_4.tiff", width = 10, height = 8,
+        res = 400, units = "in", compression = "lzw")
+    plot_tdf_all()
+    dev.off()
+}
+
+figure_4()
 
 # SECTION 4 - Drivers of whale shark isotope values ----------------------------
 # This section attempts to determine the drivers of whale shark d13c and d15n
@@ -759,7 +786,21 @@ visreg_aicc_c <- visreg(AICc_c_model, "length_est",
 visreg_aicc_c$res$sex <- isotopes$Sex # Add sex levels for plotting functions
 
 # Function to add true minus (\u2212) to x/y axis if needed
-true_minus <- function(x){ifelse(sign(x) == -1, paste0("\u2212", abs(x)), x)}
+label_text <- function(x) {
+    string_list <- NULL
+    for (item in 1:length(x)) {
+        # Add decimal values to positive and zero labels
+        if (sign(x[item]) %in% c(0, 1)) {
+            string_list[item] <- sprintf("%0.1f", x[item])
+        } else {
+            # Add \u2212 to minus and ensure decimal precision of 1
+            minus_value <- sprintf("%0.1f", x[item])
+            minus_value_true <- gsub("-", "\u2212", minus_value)
+            string_list[item] <- minus_value_true
+        }
+    }
+    return(string_list)
+}
 
 ### Whale shark length and dermal 13C values -----------------------------------
 shark_d13c_length <- ggplot() +
@@ -778,7 +819,8 @@ shark_d13c_length <- ggplot() +
     scale_color_manual(values = c(alpha("#0072b2", 1), alpha("#fe7308", 1)),
                        labels = c("Female", "Male")) +
     scale_shape_discrete(labels = c("Female", "Male")) +
-    scale_y_continuous(labels = true_minus) +
+    scale_y_continuous(labels = label_text) +
+    scale_x_continuous(labels = label_text) +
     # Change theme to be consistent
     theme_classic() +
     # Alter themes
@@ -822,7 +864,7 @@ shark_d13c_year <- ggplot() +
     scale_fill_manual(values = c("#E69F00", "#56B4E9", "#009E73",
                                  "#000000", "#D55E00", "#CC79A7")) +
     # Change to true minus symbol
-    scale_y_continuous(labels = true_minus) +
+    scale_y_continuous(labels = label_text) +
     # Adjust theme
     theme_classic() +
     # Make theme consistent
@@ -859,7 +901,7 @@ shark_d13c_sex <- ggplot() +
                        labels = c("Female", "Male")) +
     scale_fill_manual(values = c("#0683c9", "#e89556"),
                       labels = c("Female", "Male")) +
-    scale_y_continuous(labels = true_minus) +
+    scale_y_continuous(labels = label_text) +
     theme_classic() +
     theme(axis.line = element_line(size = 0.8, color = "black"),
           legend.position = "none",
@@ -901,6 +943,8 @@ n_length_plot <- ggplot() +
                aes(x = length_est, y = visregRes, col = sex, pch = sex),
                size = 3) +
     scale_color_manual(values = c("#0072b2", "#fe7308")) +
+    scale_y_continuous(labels = label_text) +
+    scale_x_continuous(labels = label_text) +
     theme_classic() +
     theme(axis.line = element_line(size = 0.8, color = "black"),
           legend.position = "none",
@@ -935,6 +979,7 @@ n_year <- ggplot() +
     scale_fill_manual(values = c(
         "#E69F00", "#56B4E9", "#009E73",
         "#000000", "#D55E00", "#CC79A7")) +
+    scale_y_continuous(labels = label_text) +
     theme_classic() +
     theme(axis.line = element_line(size = 0.8, color = "black"),
           legend.position = "none",
@@ -963,8 +1008,8 @@ main_plot <- (carbon_plots | nitrogen_plots)
 main_plot
 
 # Save this as a png file for figure 5
-ggsave("figures/figure_5.png", main_plot, device = "png", width = 12,
-       height = 10, units = "in", dpi = 1000)
+ ggsave("figures/figure_5.tiff", main_plot, device = "tiff", width = 9,
+        height = 10, units = "in", dpi = 400, compression = "lzw")
 
 # SECTION 5 - SIBER Analysis ---------------------------------------------------
 # This section is dedicated to the Bayesian analysis estimating isotopic niche
@@ -1075,7 +1120,11 @@ parasite_density_plot <- function() {
          col = colour_palette[1],
          xlab = expression(
              paste("Standard Ellipse Area (", "\u2030" ^ 2 ,")")),
-         lwd = 2)
+         lwd = 2, yaxt = "n")
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat)
+    y_labs <- gsub("-", "\u2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs)
     points(y = -0.3, x = parasite_median_seab[1], pch = 19, cex = 1,
            col = colour_palette[1])
     segments(y1 = -0.3, y0 = -0.3, x0 = hdi_parasite_female[, 2],
@@ -1104,7 +1153,11 @@ whale_shark_density <- function() {
          col = colour_palette[1],
          xlab = expression(
              paste("Standard Ellipse Area (", "\u2030" ^ 2 ,")")),
-         lwd = 2)
+         lwd = 2, yaxt = "n")
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat)
+    y_labs <- gsub("-", "\u2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs)
     points(y = -0.3, x = whale_median_seab[1], pch = 19, cex = 1,
            col = colour_palette[1])
     segments(y1 = -0.3, y0 = -0.3, x0 = hdi_whale_female[, 2],
@@ -1134,11 +1187,17 @@ parasite_plot <- function() {
     par(bty = "L", mar = c(4, 4, 1, 2))
     plot(isotopes$para_acid_d13c, isotopes$para_d15n,
         col = colour_palette[sex_factors], xlab = "", ylab = "",
-        xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19), xaxt = "n")
+        xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19), xaxt = "n",
+        yaxt = "n")
     # Add minux (\u2212) for plotting
     xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat)
     x_labs <- gsub("-", "\u2212", print.default(xat))
     axis(1, at = xat, labels = x_labs)
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat)
+    y_labs <- gsub("-", "\u2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs)
     # Add axis titles
     title(xlab = expression(paste(delta ^ {13}, "C (\u2030)")))
     title(ylab = expression(paste(delta ^ {15}, "N (\u2030)")), line = 2)
@@ -1163,12 +1222,18 @@ parasite_plot()
 whale_plot <- function() {
     par(bty = "L", mar = c(4, 4, 1, 2))
     plot(isotopes$host_d13c, isotopes$host_d15n,
-        col = colour_palette[sex_factors], xlab = "", ylab = "",
-        xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19), xaxt = "n")
+         col = colour_palette[sex_factors], xlab = "", ylab = "",
+         xlim = c(-18.5, -14), ylim = c(5.5, 11), pch = c(19, 19), xaxt = "n",
+         yaxt = "n")
     # Add minus symbol for negative values
     xat <- axTicks(1, usr = par("usr")[1:2])
+    xat <- sprintf("%0.1f", xat)
     x_labs <- gsub("-", "\u2212", print.default(xat))
     axis(1, at = xat, labels = x_labs)
+    yat <- axTicks(2, usr = par("usr")[1:2])
+    yat <- sprintf("%0.1f", yat)
+    y_labs <- gsub("-", "\u2212", print.default(yat))
+    axis(2, at = yat, labels = y_labs)
     title(xlab = expression(paste(delta ^ {13}, "C (\u2030)")))
     title(ylab = expression(paste(delta ^ {15}, "N (\u2030)")), line = 2)
     legend("bottomleft", legend = c("Female", "Male"), pch = c(19, 19),
@@ -1201,14 +1266,13 @@ standard_ellipse_plot()
 
 # save this plot
 figure_6 <- function() {
-    png(filename = "figures/figure_6.png",
+    tiff(filename = "figures/figure_6.tiff",
         width = 7, height = 7, unit = "in",
-        res = 1200)
+        res = 400, compression = "lzw")
     standard_ellipse_plot()
     dev.off()
 }
 figure_6()
-# Plot was saved to pdf using 7 X 5.28 inches (width/height).
 
 # Calculate SEA metrics
 groupMetricsML(whale_siber)
