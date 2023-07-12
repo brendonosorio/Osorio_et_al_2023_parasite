@@ -9,7 +9,7 @@ Brendon J. Osorio (1), Grzegorz Skrzypek (1), Mark Meekan (2)
 
 Affiliations:
 * (1) - Western Australian Biogeochemistry Centre, School of Biological Sciences, The University of Western Australia, Perth 6009, Australia 
-* (2) - Australian Institute of Marine Sciences, UWA Oceans Institute, Perth 6009, Australia
+* (2) - The Ocean's Institute, The University of Western Australia, Perth 6009, Australia
 
 Author contact details:
 
